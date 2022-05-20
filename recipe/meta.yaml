@@ -69,6 +69,7 @@ test:
     - if not exist %PREFIX%\\Library\\bin\\libtiffxx.dll exit 1  # [win]
 
 about:
+  # HTTPS doesn't work.
   home: http://www.libtiff.org/
   license: HPND
   license_file: COPYRIGHT
@@ -76,6 +77,7 @@ about:
   description: |
     This software provides support for the Tag Image File Format (TIFF), a
     widely used format for storing image data.
+  dev_url: https://gitlab.com/libtiff/libtiff
   doc_url: http://www.libtiff.org/document.html
 
 extra:
