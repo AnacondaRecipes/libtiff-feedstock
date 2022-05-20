@@ -52,6 +52,19 @@ requirements:
     - zstd
 
 test:
+-  requires:
+    # Regression testing since libtiff is only pinned to the major version.
+    # See also recipe/downstream_tests.py and recipe commit bc700ad6.
+    #
+    # Having Python and numpy here triggers a bug in conda build, rebuilding
+    # the package multiple times.
+    #
+    #- python 3.8  # Test with only 1 version of python
+    #- numpy
+    #- pillow
+    #
+    # For opencv testing, add  mesa-libGL to the yum_requirements.txt file
+    - opencv  # [not s390x]
   commands:
     - test -f ${PREFIX}/lib/libtiff.a  # [not win]
     - test -f ${PREFIX}/lib/libtiffxx.a  # [not win]
