@@ -23,6 +23,8 @@ build:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
     - {{ pin_subpackage('libtiff', max_pin='x') }}
+  ignore_run_exports:
+    - jpeg  # [win]
   missing_dso_whitelist:
     # Only used by libtiff,bin/tiffgt (a viewer), which is ok.
     - /opt/X11/lib/libGL.1.dylib
@@ -59,12 +61,11 @@ test:
     # Having Python and numpy here triggers a bug in conda build, rebuilding
     # the package multiple times.
     #
-    #- python 3.8  # Test with only 1 version of python
-    #- numpy
-    #- pillow
+    # - python 3.8  # Test with only 1 version of python
+    # - numpy
+    # - pillow
     #
-    # For opencv testing, add  mesa-libGL to the yum_requirements.txt file
-    - opencv  # [not s390x]
+    # - opencv  # [not s390x]
   commands:
     - test -f ${PREFIX}/lib/libtiff.a  # [not win]
     - test -f ${PREFIX}/lib/libtiffxx.a  # [not win]
