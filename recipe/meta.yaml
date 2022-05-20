@@ -54,7 +54,7 @@ requirements:
     - zstd
 
 test:
--  requires:
+  # - requires:
     # Regression testing since libtiff is only pinned to the major version.
     # See also recipe/downstream_tests.py and recipe commit bc700ad6.
     #
