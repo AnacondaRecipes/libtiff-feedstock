@@ -19,6 +19,10 @@ build:
   #    https://abi-laboratory.pro/tracker/timeline/libtiff/
   run_exports:
     - {{ pin_subpackage('libtiff', max_pin='x') }}
+  ignore_run_exports:
+    # No signs of jpeg when running dumpbin /dependents on the tiff DLLs, but
+    # it's used during build, so it is probably being statically linked.
+    - jpeg  # [win]
   missing_dso_whitelist:
     # Only used by libtiff,bin/tiffgt (a viewer), which is ok.
     - /opt/X11/lib/libGL.1.dylib
@@ -34,11 +38,6 @@ requirements:
     - patch   # [not win]
     - m2-patch  # [win]
   host:
-    - zlib
-    - jpeg
-    - xz
-    - zstd
-  run:
     - zlib
     - jpeg
     - xz
