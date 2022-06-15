@@ -30,6 +30,8 @@ requirements:
     - cmake   # [win]
     - ninja   # [win]
     - make    # [not win]
+    - patch   # [not win]
+    - m2-patch  # [win]
   host:
     - zlib
     - jpeg
