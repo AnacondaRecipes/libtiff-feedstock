@@ -13,7 +13,8 @@ source:
 
 build:
   number: 1
-  skip: True  # [win and vc<14]
+  # This version was never built for osx-arm64.
+  skip: True  # [(win and vc<14) or (osx and arm64)]
   # Does a very good job of maintaining compatibility.
   #    https://abi-laboratory.pro/tracker/timeline/libtiff/
   run_exports:
