@@ -55,14 +55,16 @@ test:
     - if not exist %PREFIX%\\Library\\bin\\libtiffxx.dll exit 1  # [win]
 
 about:
-  home: http://www.libtiff.org/
-  license: HPND
+  home: https://libtiff.gitlab.io/libtiff/
+  license: libtiff
   license_file: COPYRIGHT
+  license_family: OTHER
   summary: 'Support for the Tag Image File Format (TIFF).'
   description: |
     This software provides support for the Tag Image File Format (TIFF), a
     widely used format for storing image data.
-  doc_url: http://www.libtiff.org/document.html
+  dev_url: https://gitlab.com/libtiff/libtiff
+  doc_url: http://www.simplesystems.org/libtiff/
 
 extra:
    recipe-maintainers:
