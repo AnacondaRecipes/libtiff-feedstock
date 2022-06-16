@@ -15,4 +15,7 @@ cmake --build . --target install --config Release
 if errorlevel 1 exit /b 1
 
 copy "%LIBRARY_PREFIX%"\bin\tiff.dll "%LIBRARY_PREFIX%"\bin\libtiff.dll
+copy "%LIBRARY_PREFIX%"\lib\tiff.lib "%LIBRARY_PREFIX%"\lib\libtiff.lib
+
 copy "%LIBRARY_PREFIX%"\bin\tiffxx.dll "%LIBRARY_PREFIX%"\bin\libtiffxx.dll
+copy "%LIBRARY_PREFIX%"\lib\tiffxx.lib "%LIBRARY_PREFIX%"\lib\libtiffxx.lib
