@@ -12,12 +12,17 @@ source:
     - patches/fix_TIFFReadRawStrip_man_page_typo.patch
 
 build:
-  number: 0
-  skip: True  # [win and vc<14]
+  number: 1
+  # This version was never built for osx-arm64.
+  skip: True  # [(win and vc<14) or (osx and arm64)]
   # Does a very good job of maintaining compatibility.
   #    https://abi-laboratory.pro/tracker/timeline/libtiff/
   run_exports:
     - {{ pin_subpackage('libtiff', max_pin='x') }}
+  ignore_run_exports:
+    # No signs of jpeg when running dumpbin /dependents on the tiff DLLs, but
+    # it's used during build, so it is probably being statically linked.
+    - jpeg  # [win]
   missing_dso_whitelist:
     # Only used by libtiff,bin/tiffgt (a viewer), which is ok.
     - /opt/X11/lib/libGL.1.dylib
@@ -30,12 +35,9 @@ requirements:
     - cmake   # [win]
     - ninja   # [win]
     - make    # [not win]
+    - patch   # [not win]
+    - m2-patch  # [win]
   host:
-    - zlib
-    - jpeg
-    - xz
-    - zstd
-  run:
     - zlib
     - jpeg
     - xz
@@ -53,14 +55,16 @@ test:
     - if not exist %PREFIX%\\Library\\bin\\libtiffxx.dll exit 1  # [win]
 
 about:
-  home: http://www.libtiff.org/
-  license: HPND
+  home: https://libtiff.gitlab.io/libtiff/
+  license: libtiff
   license_file: COPYRIGHT
+  license_family: OTHER
   summary: 'Support for the Tag Image File Format (TIFF).'
   description: |
     This software provides support for the Tag Image File Format (TIFF), a
     widely used format for storing image data.
-  doc_url: http://www.libtiff.org/document.html
+  dev_url: https://gitlab.com/libtiff/libtiff
+  doc_url: http://www.simplesystems.org/libtiff/
 
 extra:
    recipe-maintainers:
