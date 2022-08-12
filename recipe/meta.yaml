@@ -10,15 +10,19 @@ source:
     folder: .
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win and vc<14]
   run_exports:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
     - {{ pin_subpackage('libtiff', max_pin='x') }}
   ignore_run_exports:
-    - jpeg  # [win]
-    - xz    # [win]
+    - jpeg        # [win]
+    - xz          # [win]
+    - zlib        # [win]
+    - zstd        # [win]
+    - lerc        # [win]
+    - libdeflate  # [win]
   missing_dso_whitelist:
     # Only used by libtiff,bin/tiffgt (a viewer), which is ok.
     - /opt/X11/lib/libGL.1.dylib
