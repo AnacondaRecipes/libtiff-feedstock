@@ -10,7 +10,7 @@ source:
     folder: .
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win and vc<14]
   run_exports:
     # Does a very good job of maintaining compatibility.
@@ -54,6 +54,9 @@ requirements:
     - libdeflate
 
 test:
+  downstreams:
+    - pillow >=8
+    - py-opencv >=4
   commands:
     - test -f ${PREFIX}/lib/libtiff.a  # [not win]
     - test -f ${PREFIX}/lib/libtiffxx.a  # [not win]
