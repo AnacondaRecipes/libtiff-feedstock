@@ -1,4 +1,4 @@
-{% set version = "4.2.0" %}
+{% set version = "4.4.0" %}
 
 package:
   name: libtiff
@@ -6,25 +6,23 @@ package:
 
 source:
   - url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
-    sha256: eb0484e568ead8fa23b513e9b0041df7e327f4ee2d22db5a533929dfc19633cb
+    sha256: 917223b37538959aca3b790d2d73aa6e626b688e02dcda272aec24c2f498abed
     folder: .
-    patches:
-      - patches/fix_TIFFReadRawStrip_man_page_typo.patch
-      # It seems that a recent patch in tifffile 4.1 may have broken
-      # binary compatibility on windows.
-      # https://gitlab.com/libtiff/libtiff/issues/173
-      # https://github.com/python-pillow/Pillow/issues/4237
-      - patches/use_unix_io.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win and vc<14]
   run_exports:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
     - {{ pin_subpackage('libtiff', max_pin='x') }}
   ignore_run_exports:
-    - jpeg  # [win]
+    - jpeg        # [win]
+    - xz          # [win]
+    - zlib        # [win]
+    - zstd        # [win]
+    - lerc        # [win]
+    - libdeflate  # [win]
   missing_dso_whitelist:
     # Only used by libtiff,bin/tiffgt (a viewer), which is ok.
     - /opt/X11/lib/libGL.1.dylib
@@ -38,34 +36,27 @@ requirements:
     - libtool       # [unix]
     - make          # [not win]
     - ninja         # [win]
-    - patch         # [not win]
-    - m2-patch      # [win]
   host:
     - jpeg
     - libwebp-base  # [linux or osx]
     - xz
     - zlib
     - zstd
+    - lerc
+    - libdeflate
   run:
     - jpeg
     - libwebp-base  # [linux or osx]
     - xz
     - zlib
     - zstd
+    - lerc
+    - libdeflate
 
 test:
-  # - requires:
-    # Regression testing since libtiff is only pinned to the major version.
-    # See also recipe/downstream_tests.py and recipe commit bc700ad6.
-    #
-    # Having Python and numpy here triggers a bug in conda build, rebuilding
-    # the package multiple times.
-    #
-    # - python 3.8  # Test with only 1 version of python
-    # - numpy
-    # - pillow
-    #
-    # - opencv  # [not s390x]
+  downstreams:
+    - pillow >=8
+    - py-opencv >=4
   commands:
     - test -f ${PREFIX}/lib/libtiff.a  # [not win]
     - test -f ${PREFIX}/lib/libtiffxx.a  # [not win]
@@ -78,14 +69,16 @@ test:
 
 about:
   # HTTPS does not work.
-  home: http://www.libtiff.org/
+  home: http://www.simplesystems.org/libtiff/
   license: HPND
   license_file: COPYRIGHT
   summary: Support for the Tag Image File Format (TIFF).
   description: |
     This software provides support for the Tag Image File Format (TIFF), a
     widely used format for storing image data.
-  doc_url: http://www.libtiff.org/document.html
+  # HTTPS does not work.
+  doc_url: http://www.simplesystems.org/libtiff/
+  doc_source_url: https://gitlab.com/libtiff/libtiff/-/blob/master/README.md
   dev_url: https://gitlab.com/libtiff/libtiff
 
 extra:
