@@ -8,11 +8,24 @@ source:
   url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
   sha256: 5d29f32517dadb6dbcd1255ea5bbc93a2b54b94fbf83653b4d65c7d6775b8634
   patches:
-    - patches/0003-CVE-2017-11613.patch
-    - patches/fix_TIFFReadRawStrip_man_page_typo.patch
+    - patches/0001_fix_TIFFReadRawStrip_man_page_typo.patch
+    - patches/0002_OJPEGReadHeaderInfo_parse_fix.patch
+    - patches/0003_CVE-2020-35523.patch
+    - patches/0004_CVE-2020-35524.patch
+    - patches/0005_TIFFTAG_PREDICTOR-is-not-supported-for-WebP.patch
+    - patches/0006_CVE-2022-0561.patch
+    - patches/0007_CVE-2022-0562.patch
+    - patches/0008_CVE-2022-22844.patch
+    - patches/0009_CVE-2022-0865.patch
+    - patches/0010_CVE-2022-0908.patch
+    - patches/0011_CVE-2022-0907.patch
+    - patches/0012_CVE-2022-0909.patch
+    - patches/0013_CVE-2022-0891.patch
+    - patches/0014_CVE-2022-0924.patch
+    - patches/0015_CVE-2022-2869.patch
 
 build:
-  number: 1
+  number: 2
   # trigger: 1
   # This version was never built for osx-arm64.
   skip: True  # [(win and vc<14) or (osx and arm64)]
@@ -56,16 +69,20 @@ test:
     - if not exist %PREFIX%\\Library\\bin\\libtiffxx.dll exit 1  # [win]
 
 about:
-  home: https://libtiff.gitlab.io/libtiff/
+  # HTTPS does not work.
+  home: http://www.simplesystems.org/libtiff/
   license: libtiff
   license_file: COPYRIGHT
-  license_family: OTHER
-  summary: 'Support for the Tag Image File Format (TIFF).'
+  license_family: BSD
+  license_url: http://www.simplesystems.org/libtiff/project/license.html
+  summary: Support for the Tag Image File Format (TIFF).
   description: |
     This software provides support for the Tag Image File Format (TIFF), a
     widely used format for storing image data.
-  dev_url: https://gitlab.com/libtiff/libtiff
+  # HTTPS does not work.
   doc_url: http://www.simplesystems.org/libtiff/
+  doc_source_url: https://gitlab.com/libtiff/libtiff/blob/master/README.md
+  dev_url: https://gitlab.com/libtiff/libtiff
 
 extra:
    recipe-maintainers:

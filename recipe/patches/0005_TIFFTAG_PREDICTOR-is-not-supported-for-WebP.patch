@@ -1,0 +1,53 @@
+From: Thomas Bernard <miniupnp@free.fr>
+Date: Sun, 8 Mar 2020 18:21:56 +0100
+Subject: TIFFTAG_PREDICTOR is not supported for WebP
+Origin: https://gitlab.com/libtiff/libtiff/-/commit/54ce8c522078cd0f39861df71db848648ec28ade
+Bug-Debian-Security: https://security-tracker.debian.org/tracker/CVE-2020-19143
+Bug: https://gitlab.com/libtiff/libtiff/-/issues/158
+
+fixes #158
+https://gitlab.com/libtiff/libtiff/-/issues/158
+
+this bug was introduced by 9eacd59fecc4ef593ac17689bc530ab451c8ec14
+merge request !32
+---
+ libtiff/tif_dirinfo.c | 4 ----
+ tools/tiffcp.c        | 3 ++-
+ 2 files changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/libtiff/tif_dirinfo.c b/libtiff/tif_dirinfo.c
+index 99b0a3ea4ca4..0354a93b0005 100644
+--- a/libtiff/tif_dirinfo.c
++++ b/libtiff/tif_dirinfo.c
+@@ -1236,10 +1236,6 @@ _TIFFCheckFieldIsValidForCodec(TIFF *tif, ttag_t tag)
+ 		if (tag == TIFFTAG_LERC_PARAMETERS)
+ 		    return 1;
+ 		break;
+-		  case COMPRESSION_WEBP:
+-		if (tag == TIFFTAG_PREDICTOR)
+-				return 1;
+-		break;
+ 	}
+ 	return 0;
+ }
+diff --git a/tools/tiffcp.c b/tools/tiffcp.c
+index ad551ef2b5d9..21ce4b2ffcb8 100644
+--- a/tools/tiffcp.c
++++ b/tools/tiffcp.c
+@@ -741,11 +741,12 @@ tiffcp(TIFF* in, TIFF* out)
+ 		case COMPRESSION_DEFLATE:
+                 case COMPRESSION_LZMA:
+                 case COMPRESSION_ZSTD:
+-								case COMPRESSION_WEBP:
+ 			if (predictor != (uint16)-1)
+ 				TIFFSetField(out, TIFFTAG_PREDICTOR, predictor);
+ 			else
+ 				CopyField(TIFFTAG_PREDICTOR, predictor);
++			/*fallthrough*/
++		case COMPRESSION_WEBP:
+ 			if (preset != -1) {
+                                 if (compression == COMPRESSION_ADOBE_DEFLATE
+                                          || compression == COMPRESSION_DEFLATE)
+-- 
+2.33.0
+
