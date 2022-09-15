@@ -5,19 +5,28 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
-    sha256: eb0484e568ead8fa23b513e9b0041df7e327f4ee2d22db5a533929dfc19633cb
-    folder: .
-    patches:
-      - patches/fix_TIFFReadRawStrip_man_page_typo.patch
-      # It seems that a recent patch in tifffile 4.1 may have broken
-      # binary compatibility on windows.
-      # https://gitlab.com/libtiff/libtiff/issues/173
-      # https://github.com/python-pillow/Pillow/issues/4237
-      - patches/use_unix_io.patch
+  url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
+  sha256: eb0484e568ead8fa23b513e9b0041df7e327f4ee2d22db5a533929dfc19633cb
+  patches:
+    - patches/0001_fix_TIFFReadRawStrip_man_page_typo.patch
+    - patches/0002_CVE-2022-0561.patch
+    - patches/0003_CVE-2022-0562.patch
+    - patches/0004_CVE-2022-22844.patch
+    - patches/0005_CVE-2022-0865.patch
+    - patches/0006_CVE-2022-0908.patch
+    - patches/0007_CVE-2022-0907.patch
+    - patches/0008_CVE-2022-0909.patch
+    - patches/0009_CVE-2022-0891.patch
+    - patches/0010_CVE-2022-0924.patch
+    - patches/0011_CVE-2022-2869.patch
+    # It seems that a recent patch in tifffile 4.1 may have broken
+    # binary compatibility on windows.
+    # https://gitlab.com/libtiff/libtiff/issues/173
+    # https://github.com/python-pillow/Pillow/issues/4237
+    - patches/use_unix_io.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win and vc<14]
   run_exports:
     # Does a very good job of maintaining compatibility.
@@ -78,14 +87,18 @@ test:
 
 about:
   # HTTPS does not work.
-  home: http://www.libtiff.org/
-  license: HPND
+  home: http://www.simplesystems.org/libtiff/
+  license: libtiff
   license_file: COPYRIGHT
+  license_family: BSD
+  license_url: http://www.simplesystems.org/libtiff/project/license.html
   summary: Support for the Tag Image File Format (TIFF).
   description: |
     This software provides support for the Tag Image File Format (TIFF), a
     widely used format for storing image data.
-  doc_url: http://www.libtiff.org/document.html
+  # HTTPS does not work.
+  doc_url: http://www.simplesystems.org/libtiff/
+  doc_source_url: https://gitlab.com/libtiff/libtiff/blob/master/README.md
   dev_url: https://gitlab.com/libtiff/libtiff
 
 extra:
