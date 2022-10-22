@@ -7,6 +7,8 @@ package:
 source:
   - url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
     sha256: 917223b37538959aca3b790d2d73aa6e626b688e02dcda272aec24c2f498abed
+    patches:
+      - patches/CVE-2022-2056.patch
     folder: .
 
 build:
@@ -36,6 +38,9 @@ requirements:
     - libtool       # [unix]
     - make          # [not win]
     - ninja         # [win]
+    - m2-patch      # [win]
+    - patch         # [not win]
+
   host:
     - jpeg
     - libwebp-base  # [linux or osx]
