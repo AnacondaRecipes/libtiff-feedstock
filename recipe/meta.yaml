@@ -79,6 +79,8 @@ about:
   home: http://www.simplesystems.org/libtiff/
   license: HPND
   license_file: COPYRIGHT
+  license_family: Other
+  license_url: http://www.simplesystems.org/libtiff/project/license.html
   summary: Support for the Tag Image File Format (TIFF).
   description: |
     This software provides support for the Tag Image File Format (TIFF), a
