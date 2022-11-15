@@ -11,10 +11,13 @@ source:
       - patches/0001_CVE-2022-2056.patch
       - patches/0002_CVE-2022-2953.patch
       - patches/0003_CVE-2022-34526.patch
+      - patches/0004_CVE-2022-3597.patch
+      - patches/0005_CVE-2022-3570.patch
+      - patches/0006_CVE-2022-3599.patch
     folder: .
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win and vc<14]
   run_exports:
     # Does a very good job of maintaining compatibility.
