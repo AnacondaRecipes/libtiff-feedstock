@@ -14,6 +14,7 @@ source:
       - patches/0004_CVE-2022-3597.patch
       - patches/0005_CVE-2022-3570.patch
       - patches/0006_CVE-2022-3599.patch
+      - patches/0007_CVE-2022-3970.patch
     folder: .
 
 build:
