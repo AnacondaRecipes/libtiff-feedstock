@@ -17,7 +17,7 @@ source:
     folder: .
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win and vc<14]
   run_exports:
     # Does a very good job of maintaining compatibility.
