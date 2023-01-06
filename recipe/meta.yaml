@@ -1,4 +1,4 @@
-{% set version = "4.4.0" %}
+{% set version = "4.5.0" %}
 
 package:
   name: libtiff
@@ -18,7 +18,7 @@ source:
     folder: .
 
 build:
-  number: 3
+  number: 0
   skip: true  # [win and vc<14]
   run_exports:
     # Does a very good job of maintaining compatibility.
