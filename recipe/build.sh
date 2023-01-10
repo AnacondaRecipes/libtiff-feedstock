@@ -28,3 +28,9 @@ rm -rf "${PREFIX}/share"
 
 # We can remove this when we start using the new conda-build.
 find $PREFIX -name '*.la' -delete
+
+if [ $(uname) = Darwin ]; then
+  ln -s ${PREFIX}/lib/libtiff.6.dylib ${PREFIX}/lib/libtiff.5.dylib
+else
+  ln -s ${PREFIX}/lib/libtiff.so.6 ${PREFIX}/lib/libtiff.so.5
+fi
