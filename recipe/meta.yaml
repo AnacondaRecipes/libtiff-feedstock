@@ -8,6 +8,8 @@ source:
   - url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
     sha256: c7a1d9296649233979fa3eacffef3fa024d73d05d589cb622727b5b08c423464
     folder: .
+    patches:
+      - patches/set_configure_script_version.patch
 
 build:
   number: 0
@@ -36,6 +38,7 @@ requirements:
     - libtool       # [unix]
     - make          # [not win]
     - ninja         # [win]
+    - patch         # [not win]
   host:
     - jpeg
     - libwebp-base  # [linux or osx]
