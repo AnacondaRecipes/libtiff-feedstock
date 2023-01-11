@@ -1,4 +1,4 @@
-{% set version = "4.4.0" %}
+{% set version = "4.5.0" %}
 
 package:
   name: libtiff
@@ -6,18 +6,13 @@ package:
 
 source:
   - url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
-    sha256: 917223b37538959aca3b790d2d73aa6e626b688e02dcda272aec24c2f498abed
-    patches:
-      - patches/0001_CVE-2022-2056.patch
-      - patches/0002_CVE-2022-2953.patch
-      - patches/0003_CVE-2022-34526.patch
-      - patches/0004_CVE-2022-3597.patch
-      - patches/0005_CVE-2022-3570.patch
-      - patches/0006_CVE-2022-3599.patch
+    sha256: c7a1d9296649233979fa3eacffef3fa024d73d05d589cb622727b5b08c423464
     folder: .
+    patches:                                        # [osx]
+      - patches/set_configure_script_version.patch  # [osx]
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win and vc<14]
   run_exports:
     # Does a very good job of maintaining compatibility.
@@ -43,9 +38,7 @@ requirements:
     - libtool       # [unix]
     - make          # [not win]
     - ninja         # [win]
-    - m2-patch      # [win]
-    - patch         # [not win]
-
+    - patch         # [osx]
   host:
     - jpeg
     - libwebp-base  # [linux or osx]
@@ -73,15 +66,16 @@ test:
     - test -f ${PREFIX}/lib/libtiff{{ SHLIB_EXT }}  # [not win]
     - test -f ${PREFIX}/lib/libtiffxx{{ SHLIB_EXT }}  # [not win]
     - if not exist %PREFIX%\\Library\\bin\\tiff.dll exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\bin\\tiffxx.dll exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\lib\\tiffxx.lib exit 1  # [win]
     - if not exist %PREFIX%\\Library\\bin\\libtiff.dll exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\bin\\libtiffxx.dll exit 1  # [win]
+    # The C++ tiffxx.dll has been removed as of 4.5.0:
+    # https://gitlab.com/libtiff/libtiff/-/merge_requests/338
 
 about:
   # HTTPS does not work.
   home: http://www.simplesystems.org/libtiff/
   license: HPND
-  license_file: COPYRIGHT
+  license_file: LICENSE.md
   license_family: Other
   license_url: http://www.simplesystems.org/libtiff/project/license.html
   summary: Support for the Tag Image File Format (TIFF).
