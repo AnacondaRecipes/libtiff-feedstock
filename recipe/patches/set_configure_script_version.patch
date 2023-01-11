@@ -4,8 +4,9 @@ This change has major implications for Mach-O dynamic libraries on MacOS.
 
 In order to maintain compatibility with other libraries that were
 linked with previous versions of libtiff, these must be reset back to the
-previous values, with LIBTIFF_CURRENT being incremented by 1 to indicate the
-ABI change that occurred in libtiff 4.4.0.
+previous values, with LIBTIFF_CURRENT being incremented by 1. The maintainers
+of libtiff decided to increment the SO version as a result of the private
+symbol that was removed in libtiff 4.4.0.
 
 This must be done because existing packages that are linked with older versions
 of libtiff require a compatibility_version that is greater than or equal to the
