@@ -37,7 +37,7 @@ requirements:
     - libwebp-base  # [linux or osx]
     - xz 5.2.4
     - zlib 1.2.11
-    - zstd 1.5.2,
+    - zstd 1.5.2
     - lerc 3.0
     - libdeflate 1.7  # [not arm64]
     - libdeflate 1.8  # [arm64]
