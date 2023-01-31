@@ -35,7 +35,7 @@ requirements:
   host:
     - jpeg 9e
     - libwebp-base  # [linux or osx]
-    - xz 5.2.4
+    - xz 5.2.*
     - zlib 1.2.11
     - zstd 1.5.2
     - lerc 3.0
