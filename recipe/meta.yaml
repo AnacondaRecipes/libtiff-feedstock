@@ -39,8 +39,8 @@ requirements:
     - zlib 1.2.11
     - zstd 1.5.2
     - lerc 3.0
-    - libdeflate 1.7  # [not arm64]
-    - libdeflate 1.8  # [arm64]
+    - libdeflate 1.7  # [s390x or aarch64]
+    - libdeflate 1.8  # [not (s390x or aarch64)]
   run:
     - jpeg >=9e,<10a
     - libwebp-base  # [linux or osx]
@@ -48,7 +48,8 @@ requirements:
     - zlib >=1.2.11,<1.3.0a0
     - zstd >=1.5.2,<1.6.0a0
     - lerc >=3.0,<4.0a0
-    - libdeflate >=1.8,<1.9.0a0
+    - libdeflate >=1.8,<1.9.0a0  # [not (s390x or aarch64)]
+    - libdeflate >=1.7,<1.8.0a0  # [s390x or aarch64]
 
 test:
   downstreams:
