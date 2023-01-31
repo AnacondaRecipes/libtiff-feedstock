@@ -36,7 +36,7 @@ requirements:
     - jpeg 9e
     - libwebp-base  # [linux or osx]
     - xz 5.2.*
-    - zlib 1.2.11
+    - zlib 1.2.13  # should be actually 1.2.11, but pinning hell
     - zstd 1.5.2
     - lerc 3.0
     - libdeflate 1.7  # [s390x or aarch64]
@@ -45,7 +45,7 @@ requirements:
     - jpeg >=9e,<10a
     - libwebp-base  # [linux or osx]
     - xz >=5.2.4,<6.0a0
-    - zlib >=1.2.11,<1.3.0a0
+    - zlib >=1.2.13,<1.3.0a0
     - zstd >=1.5.2,<1.6.0a0
     - lerc >=3.0,<4.0a0
     - libdeflate >=1.8,<1.9.0a0  # [not (s390x or aarch64)]
