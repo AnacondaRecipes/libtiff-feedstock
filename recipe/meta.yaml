@@ -12,19 +12,12 @@ source:
       - patches/set_configure_script_version.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
   run_exports:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
     - {{ pin_subpackage('libtiff', max_pin='x') }}
-  ignore_run_exports:
-    - jpeg        # [win]
-    - xz          # [win]
-    - zlib        # [win]
-    - zstd        # [win]
-    - lerc        # [win]
-    - libdeflate  # [win]
   missing_dso_whitelist:
     # Only used by libtiff,bin/tiffgt (a viewer), which is ok.
     - /opt/X11/lib/libGL.1.dylib
@@ -40,21 +33,23 @@ requirements:
     - ninja         # [win]
     - patch         # [osx]
   host:
-    - jpeg
+    - jpeg 9e
     - libwebp-base  # [linux or osx]
-    - xz
-    - zlib
-    - zstd
-    - lerc
-    - libdeflate
+    - xz 5.2.*
+    - zlib 1.2.13  # should be actually 1.2.11, but pinning hell
+    - zstd 1.5.2
+    - lerc 3.0
+    - libdeflate 1.7  # [s390x or aarch64]
+    - libdeflate 1.8  # [not (s390x or aarch64)]
   run:
-    - jpeg
+    - jpeg >=9e,<10a
     - libwebp-base  # [linux or osx]
-    - xz
-    - zlib
-    - zstd
-    - lerc
-    - libdeflate
+    - xz >=5.2.4,<6.0a0
+    - zlib >=1.2.13,<1.3.0a0
+    - zstd >=1.5.2,<1.6.0a0
+    - lerc >=3.0,<4.0a0
+    - libdeflate >=1.8,<1.9.0a0  # [not (s390x or aarch64)]
+    - libdeflate >=1.7,<1.8.0a0  # [s390x or aarch64]
 
 test:
   downstreams:
