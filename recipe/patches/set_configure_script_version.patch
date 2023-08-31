@@ -24,6 +24,9 @@ When libtiff alters the LIBTIFF_CURRENT or LIBTIFF_AGE values, this patch will
 need to be updated (it will fail to apply when that occurs). Hopefully, changes
 can be made upstream to better address this before that happens.
 
+Update to 4.5.1 from 4.5.0 : no changes to the API, as a result, only 
+LIBTIFF_REVISION was incremented. Therefore LIBTIFF_REVISION is incremented to 1.
+
 --- configure	2023-01-10 14:40:57.000000000 -0700
 +++ configure 	2023-01-10 14:15:28.000000000 -0700
 @@ -3721,9 +3721,9 @@
@@ -32,7 +35,7 @@ can be made upstream to better address this before that happens.
  
 -LIBTIFF_CURRENT=6
 +LIBTIFF_CURRENT=14
- LIBTIFF_REVISION=0
+ LIBTIFF_REVISION=1
 -LIBTIFF_AGE=0
 +LIBTIFF_AGE=8 
  LIBTIFF_VERSION_INFO=$LIBTIFF_CURRENT:$LIBTIFF_REVISION:$LIBTIFF_AGE
