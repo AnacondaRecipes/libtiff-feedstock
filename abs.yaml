@@ -1,7 +1,3 @@
 build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
-
-channels:
-  - https://staging.continuum.io/prefect/fs/lerc-feedstock/pr3/b5361e3
-  - https://staging.continuum.io/prefect/fs/libdeflate-feedstock/pr6/915189e
