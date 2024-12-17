@@ -16,3 +16,7 @@ if errorlevel 1 exit /b 1
 
 copy "%LIBRARY_PREFIX%"\bin\tiff.dll "%LIBRARY_PREFIX%"\bin\libtiff.dll
 if errorlevel 1 exit /b 1
+
+:: libtiff.lib is missing on win
+copy "%LIBRARY_PREFIX%"\lib\tiff.lib "%LIBRARY_PREFIX%"\lib\libtiff.lib
+if errorlevel 1 exit /b 1
