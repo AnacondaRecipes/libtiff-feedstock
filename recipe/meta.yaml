@@ -1,4 +1,4 @@
-{% set version = "4.5.1" %}
+{% set version = "4.7.0" %}
 
 package:
   name: libtiff
@@ -6,10 +6,11 @@ package:
 
 source:
   - url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
-    sha256: d7f38b6788e4a8f5da7940c5ac9424f494d8a79eba53d555f4a507167dca5e2b
-    folder: .
-    patches:                                        # [osx]
-      - patches/set_configure_script_version.patch  # [osx]
+    sha256: 67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976
+    # folder: .
+    patches:
+      - patches/use_unix_io.patch # [ win ]
+    #   - patches/set_configure_script_version.patch  # [osx]
 
 build:
   number: 1
@@ -64,8 +65,7 @@ test:
     # https://gitlab.com/libtiff/libtiff/-/merge_requests/338
 
 about:
-  # HTTPS does not work.
-  home: http://www.simplesystems.org/libtiff/
+  home: https://libtiff.gitlab.io/libtiff
   license: HPND
   license_file: LICENSE.md
   license_family: Other
@@ -73,8 +73,7 @@ about:
   description: |
     This software provides support for the Tag Image File Format (TIFF), a
     widely used format for storing image data.
-  # HTTPS does not work.
-  doc_url: http://www.simplesystems.org/libtiff/
+  doc_url: https://libtiff.gitlab.io/libtiff
   dev_url: https://gitlab.com/libtiff/libtiff
 
 extra:
