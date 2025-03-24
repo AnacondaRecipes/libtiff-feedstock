@@ -115,7 +115,7 @@ test:
 
     # Testing a python script with opencv and tifffile
     - python downstream_tests.py    #  [not (linux and x86_64)]
-    - DISPLAY=localhost:1.0 xvfb-run -a bash -c "${PYTHON} downstream_tests.py"  # [linux and x86_64]
+    - DISPLAY=localhost:1.0 xvfb-run -a bash -c "python downstream_tests.py"  # [linux and x86_64]
 
     - set -ex    #  [unix]
     # Testing that binaries exist
