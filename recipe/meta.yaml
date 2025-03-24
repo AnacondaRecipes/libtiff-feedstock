@@ -70,6 +70,9 @@ test:
     - pillow
     - tifffile
     - imagecodecs
+  commands:
+    - ./run_test.sh  # [unix]
+    - run_test.bat   # [win]
   # downstreams:
   #   - devil
   #   - gdk-pixbuf
