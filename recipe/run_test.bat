@@ -44,4 +44,4 @@ if not exist %PREFIX%\\Library\\lib\\tiffxx.lib exit 1
 if not exist %PREFIX%\\Library\\lib\\pkgconfig\\libtiff-4.pc exit 1
 
 @REM Testing a python script with opencv and tifffile
-::python downstream_tests.py
+python downstream_tests.py
