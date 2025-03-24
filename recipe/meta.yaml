@@ -59,6 +59,7 @@ test:
     - downstream_tests.py
     - tst_image.tif
   requires:
+    - python
     - numpy
     # opencv isn't available on s390x
     - opencv  # [not s390x]
