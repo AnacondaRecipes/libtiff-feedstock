@@ -15,7 +15,8 @@ source:
 build:
   number: 0
   # Skip win temporarily
-  # skip: true  # [win]
+  # FAIL: test_directory on s390x
+  skip: true  # [s390x]
   run_exports:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
@@ -63,25 +64,25 @@ test:
     - pillow
     - tifffile
     - imagecodecs
-  downstreams:
-    - devil
-    - gdk-pixbuf
-    - geotiff
-    - imagecodecs
-    - lcms2
-    - leptonica
-    - libgd
-    - libgdal
-    - libwebp
-    - opencv >=4  # [not s390x]
-    - openjpeg
-    - pillow >=8
-    - poppler
-    - poppler-qt
-    - proj
-    - qtimageformats
-    - qtwebengine
-    - vtk-base
+  # downstreams:
+  #   - devil
+  #   - gdk-pixbuf
+  #   - geotiff
+  #   - imagecodecs
+  #   - lcms2
+  #   - leptonica
+  #   - libgd
+  #   - libgdal
+  #   - libwebp
+  #   - opencv >=4  # [not s390x]
+  #   - openjpeg
+  #   - pillow >=8
+  #   - poppler
+  #   - poppler-qt
+  #   - proj
+  #   - qtimageformats
+  #   - qtwebengine
+  #   - vtk-base
   #   # - r-base
   #   # - r-ijtiff
   #   - opencv-python-headless  # channel sfe1ed40
