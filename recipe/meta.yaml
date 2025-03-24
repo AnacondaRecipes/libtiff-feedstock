@@ -37,10 +37,11 @@ requirements:
     - m2-patch         # [win]
   host:
     - jpeg {{ jpeg }}
-    - libwebp-base {{ libwebp }} # [linux or osx]
+    - libwebp-base {{ libwebp }}
     - xz {{ xz}}
     - zlib 1.2.13  # should be actually 1.2.11, but pinning hell
     - zstd {{ zstd }}
+    - freeglut 3.4.0  # [win]
     - lerc 4
     - libdeflate 1.22
   run:
