@@ -53,6 +53,9 @@ test:
   # test commands are moved to run_test.sh and run_test.bat
   files:
     - downstream_tests.py
+  requires:
+    - numpy
+    - opencv
   downstreams:
     - devil
     - gdk-pixbuf
