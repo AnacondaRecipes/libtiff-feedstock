@@ -9,11 +9,11 @@ source:
     sha256: 67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976
     # folder: .
     patches:
-      - patches/use_unix_io.patch # [ win ]
+      - patches/use_unix_io.patch  # [win]
     #   - patches/set_configure_script_version.patch  # [osx]
 
 build:
-  number: 1
+  number: 0
   run_exports:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
@@ -30,12 +30,12 @@ requirements:
     - cmake         # [win]
     - libtool       # [unix]
     - make          # [not win]
-    - ninja         # [win]
-    - patch         # [osx]
+    - ninja-base    # [win]
+    - m2-patch         # [win]
   host:
-    - jpeg 9e
-    - libwebp-base 1.2.4 # [linux or osx]
-    - xz 5.2.*
+    - jpeg {{ jpeg }}
+    - libwebp-base {{ libwebp }} # [linux or osx]
+    - xz {{ xz}}
     - zlib 1.2.13  # should be actually 1.2.11, but pinning hell
     - zstd {{ zstd }}
     - lerc 4
@@ -50,16 +50,37 @@ requirements:
     - libdeflate
 
 test:
-  downstreams:
-    - pillow >=8
-    - py-opencv >=4
+  # downstreams:
+  #   - pillow >=8
+  #   - opencv >=4
+  #   - proj
+  #   - libwebp
+  #   - openjpeg
+  #   - libgdal
+  #   - leptonica
+  #   - imagecodecs
+  #   - libgd
+  #   - gdk-pixbuf
+  #   - lcms2
+  #   - qtimageformats
+  #   - poppler
+  #   - poppler-qt
+  #   - vtk-base
+  #   - geotiff
+  #   - opencv-suite
+  #   - qtwebengine
+  #   - devil
+  #   # - r-base
+  #   # - r-ijtiff
+  #   - opencv-python-headless  # channel sfe1ed40
+
   commands:
-    - test -f ${PREFIX}/lib/libtiff.a  # [not win]
-    - test -f ${PREFIX}/lib/libtiffxx.a  # [not win]
-    - test -f ${PREFIX}/lib/libtiff{{ SHLIB_EXT }}  # [not win]
-    - test -f ${PREFIX}/lib/libtiffxx{{ SHLIB_EXT }}  # [not win]
-    - if not exist %PREFIX%\\Library\\bin\\tiff.dll exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\lib\\tiffxx.lib exit 1  # [win]
+    - test ! -f ${PREFIX}/lib/libtiff.a                        # [not win]
+    - test ! -f ${PREFIX}/lib/libtiffxx.a                      # [not win]
+    - test -f ${PREFIX}/lib/libtiff{{ SHLIB_EXT }}             # [not win]
+    - test -f ${PREFIX}/lib/libtiffxx{{ SHLIB_EXT }}           # [not win]
+    - if not exist %PREFIX%\\Library\\bin\\tiff.dll exit 1     # [win]
+    - if not exist %PREFIX%\\Library\\lib\\tiffxx.lib exit 1   # [win]
     - if not exist %PREFIX%\\Library\\bin\\libtiff.dll exit 1  # [win]
     # The C++ tiffxx.dll has been removed as of 4.5.0:
     # https://gitlab.com/libtiff/libtiff/-/merge_requests/338
