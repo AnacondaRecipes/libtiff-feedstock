@@ -1,5 +1,5 @@
 import numpy as np
-image_name = 'hopper_lzw.tif'
+image_name = 'tst_image.tif'
 
 from PIL import Image
 im = Image.open(image_name)
