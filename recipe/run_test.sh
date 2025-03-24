@@ -35,8 +35,14 @@ test -f ${PREFIX}/include/tiffio.hxx
 # Testing that dynamic librarires exist
 test -f ${PREFIX}/lib/libtiff${SHLIB_EXT}
 test -f ${PREFIX}/lib/libtiffxx${SHLIB_EXT}
-test -f ${PREFIX}/lib/libtiff${SHLIB_EXT}.6
-test -f ${PREFIX}/lib/libtiffxx${SHLIB_EXT}.6
+# Soname can change and cause unforeseen problems for a few dowstream projects, so test it here.
+if [[ "${target_platform}" == linux-* ]]; then
+	test -f ${PREFIX}/lib/libtiff${SHLIB_EXT}.6
+	test -f ${PREFIX}/lib/libtiffxx${SHLIB_EXT}.6
+elif [[ "${target_platform}" == osx-* ]]; then
+	test -f ${PREFIX}/lib/libtiff.6${SHLIB_EXT}
+	test -f ${PREFIX}/lib/libtiffxx.6${SHLIB_EXT}
+fi
 
 # Testing that the pkgconfig file exists
 test -f ${PREFIX}/lib/pkgconfig/libtiff-4.pc

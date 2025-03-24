@@ -13,7 +13,7 @@ if not exist %PREFIX%\\Library\\bin\\tiff2pdf.exe exit 1
 if not exist %PREFIX%\\Library\\bin\\tiff2ps.exe exit 1
 if not exist %PREFIX%\\Library\\bin\\tiff2rgba.exe exit 1
 if not exist %PREFIX%\\Library\\bin\\tiffcmp.exe exit 1
-if not exist %PREFIX%\\Library\\bin\\iffcp.exe exit 1
+if not exist %PREFIX%\\Library\\bin\\tiffcp.exe exit 1
 if not exist %PREFIX%\\Library\\bin\\tiffcrop.exe exit 1
 if not exist %PREFIX%\\Library\\bin\\tiffdither.exe exit 1
 if not exist %PREFIX%\\Library\\bin\\tiffdump.exe exit 1

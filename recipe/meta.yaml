@@ -61,6 +61,9 @@ test:
     - numpy
     # opencv isn't available on s390x
     - opencv  # [not s390x]
+    # opencv requires on linux libEGL.so.1
+    - {{ cdt('mesa-dri-drivers') }}           # [linux]
+    - {{ cdt('mesa-libegl') }}                # [linux]
     - pillow
     - tifffile
     - imagecodecs
