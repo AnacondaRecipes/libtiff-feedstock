@@ -59,6 +59,7 @@ test:
     - opencv
     - pillow
     - tifffile
+    - imagecodecs
   downstreams:
     - devil
     - gdk-pixbuf
