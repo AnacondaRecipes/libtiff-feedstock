@@ -14,8 +14,8 @@ try:
 
     np.testing.assert_array_equal(arr, PIL_arr)
     print("Tested the cv2 image reading.")
-except ImportError:
-    pass
+except ImportError as e:
+    print(f"Warning: Couldn't test the cv2 image reading because of {e}.")
 
 try:
     # Tifffile isn't installable on all platforms yet
@@ -24,5 +24,5 @@ try:
     arr = tifffile.imread(image_name)
     np.testing.assert_array_equal(arr, PIL_arr)
     print("Tested the tifffile image reading.")
-except ImportError:
-    pass
+except ImportError as e:
+    print(f"Warning: Couldn't test the tiffile image reading because of {e}.")
