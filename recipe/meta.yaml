@@ -7,14 +7,12 @@ package:
 source:
   - url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
     sha256: 67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976
-    # folder: .
     patches:
       - patches/use_unix_io.patch  # [win]
-    #   - patches/set_configure_script_version.patch  # [osx]
 
 build:
   number: 0
-  # Skip win temporarily
+  # TODO: remove s390x after March 31.
   # FAIL: test_directory on s390x
   skip: true  # [s390x]
   run_exports:
