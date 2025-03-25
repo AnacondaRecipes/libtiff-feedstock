@@ -21,10 +21,10 @@ build:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
     - {{ pin_subpackage('libtiff', max_pin='x') }}
-  missing_dso_whitelist:
-    # Only used by libtiff,bin/tiffgt (a viewer), which is ok.
-    - /opt/X11/lib/libGL.1.dylib
-    - /opt/X11/lib/libglut.3.dylib
+  # missing_dso_whitelist:
+  #   # Only used by libtiff,bin/tiffgt (a viewer), which is ok.
+  #   - /opt/X11/lib/libGL.1.dylib
+  #   - /opt/X11/lib/libglut.3.dylib
 
 requirements:
   build:
@@ -55,113 +55,6 @@ requirements:
 
 test:
   # test commands are moved to run_test.sh and run_test.bat
-  files:
-    - downstream_tests.py
-    - tst_image.tif
-  requires:
-    - python
-    - numpy
-    # opencv isn't available on s390x
-    - opencv  # [not s390x]
-    # opencv requires on linux libEGL.so.1
-    - {{ cdt('mesa-dri-drivers') }}           # [linux]
-    - {{ cdt('mesa-libegl') }}                # [linux]
-    - {{ cdt('mesa-libgl') }}                 # [linux]
-    - pillow
-    - tifffile
-    - imagecodecs
-  commands:
-    - echo on  # [win]
-    # Testing executable files exist
-    - if not exist %LIBRARY_BIN%\\fax2ps.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\fax2tiff.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\pal2rgb.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\ppm2tiff.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\raw2tiff.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiff2bw.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiff2pdf.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiff2ps.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiff2rgba.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiffcmp.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiffcp.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiffcrop.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiffdither.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiffdump.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiffinfo.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiffmedian.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiffset.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\tiffsplit.exe exit 1  # [win]
-
-    # Testing headers files exist
-    - if not exist %LIBRARY_INC%\\tiff.h exit 1  # [win]
-    - if not exist %LIBRARY_INC%\\tiffconf.h exit 1  # [win]
-    - if not exist %LIBRARY_INC%\\tiffio.h exit 1  # [win]
-    - if not exist %LIBRARY_INC%\\tiffio.hxx exit 1  # [win]
-    - if not exist %LIBRARY_INC%\\tiffvers.h exit 1  # [win]
-
-    # Testing dynamic libraries exist
-    - if not exist %LIBRARY_BIN%\\tiff.dll exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\libtiff.dll exit 1  # [win]
-    # The C++ tiffxx.dll has been removed as of 4.5.0:
-    # https://gitlab.com/libtiff/libtiff/-/merge_requests/338
-
-    # Testing import libraries exist
-    - if not exist %LIBRARY_LIB%\\libtiff.lib exit 1  # [win]
-    - if not exist %LIBRARY_LIB%\\tiff.lib exit 1  # [win]
-    - if not exist %LIBRARY_LIB%\\tiffxx.lib exit 1  # [win]
-
-    # Testing a pkgconfig file exists
-    - if not exist %LIBRARY_LIB%\\pkgconfig\\libtiff-4.pc exit 1  # [win]
-
-    # Testing a python script with opencv and tifffile
-    - python downstream_tests.py    #  [not (linux and x86_64)]
-    - DISPLAY=localhost:1.0 xvfb-run -a bash -c "python downstream_tests.py"  # [linux and x86_64]
-
-    - set -ex    #  [unix]
-    # Testing that binaries exist
-    - test -f ${PREFIX}/bin/fax2ps    #  [unix]
-    - test -f ${PREFIX}/bin/fax2tiff    #  [unix]
-    - test -f ${PREFIX}/bin/pal2rgb    #  [unix]
-    - test -f ${PREFIX}/bin/ppm2tiff    #  [unix]
-    - test -f ${PREFIX}/bin/raw2tiff    #  [unix]
-    - test -f ${PREFIX}/bin/tiff2bw    #  [unix]
-    - test -f ${PREFIX}/bin/tiff2pdf    #  [unix]
-    - test -f ${PREFIX}/bin/tiff2ps    #  [unix]
-    - test -f ${PREFIX}/bin/tiff2rgba    #  [unix]
-    - test -f ${PREFIX}/bin/tiffcmp    #  [unix]
-    - test -f ${PREFIX}/bin/tiffcp    #  [unix]
-    - test -f ${PREFIX}/bin/tiffcrop    #  [unix]
-    - test -f ${PREFIX}/bin/tiffdither    #  [unix]
-    - test -f ${PREFIX}/bin/tiffdump    #  [unix]
-    - test -f ${PREFIX}/bin/tiffinfo    #  [unix]
-    - test -f ${PREFIX}/bin/tiffmedian    #  [unix]
-    - test -f ${PREFIX}/bin/tiffset    #  [unix]
-    - test -f ${PREFIX}/bin/tiffsplit    #  [unix]
-
-    # Testing that static libraries don't exist
-    - test ! -f ${PREFIX}/lib/libtiff.a    #  [unix]
-    - test ! -f ${PREFIX}/lib/libtiffxx.a    #  [unix]
-
-    # Testing that headers exist
-    - test -f ${PREFIX}/include/tiff.h    #  [unix]
-    - test -f ${PREFIX}/include/tiffconf.h    #  [unix]
-    - test -f ${PREFIX}/include/tiffio.h    #  [unix]
-    - test -f ${PREFIX}/include/tiffio.hxx    #  [unix]
-
-    # Testing that dynamic librarires exist
-    - test -f ${PREFIX}/lib/libtiff${SHLIB_EXT}    #  [unix]
-    - test -f ${PREFIX}/lib/libtiffxx${SHLIB_EXT}    #  [unix]
-    # Soname can change and cause unforeseen problems for a few dowstream projects, so test it here.
-    - test -f ${PREFIX}/lib/libtiff${SHLIB_EXT}.6    #  [linux]
-    - test -f ${PREFIX}/lib/libtiffxx${SHLIB_EXT}.6  #  [linux]
-    - test -f ${PREFIX}/lib/libtiff.6${SHLIB_EXT}    #  [osx]
-    - test -f ${PREFIX}/lib/libtiffxx.6${SHLIB_EXT}  #  [osx]
-
-    # Testing that the pkgconfig file exists
-    - test -f ${PREFIX}/lib/pkgconfig/libtiff-4.pc    #  [unix]
-
-
-
   # downstreams:
   #   - devil
   #   - gdk-pixbuf

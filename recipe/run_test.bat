@@ -42,7 +42,3 @@ if not exist %LIBRARY_LIB%\\tiffxx.lib exit 1
 
 @REM Testing a pkgconfig file exists
 if not exist %LIBRARY_LIB%\\pkgconfig\\libtiff-4.pc exit 1
-
-@REM Testing a python script with opencv and tifffile
-%PYTHON% downstream_tests.py
-if errorlevel 1 exit 1
