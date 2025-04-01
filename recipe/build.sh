@@ -29,16 +29,3 @@ rm -rf "${PREFIX}/share"
 
 # We can remove this when we start using the new conda-build.
 find $PREFIX -name '*.la' -delete
-
-# A private symbol was removed in libtiff 4.4.0. This caused unforeseen
-# problems for a few projects, and the result was that the SO version
-# was incremented -- but not until 4.5.0.
-# Many existing packages are linked to the .5 version, so we must
-# create a symlink to this version here, or this change will break them.
-pushd ${PREFIX}/lib
-if [ $(uname) = Darwin ]; then
-  ln -s ./libtiff.6.dylib ./libtiff.5.dylib
-else
-  ln -s ./libtiff.so.6 ./libtiff.so.5
-fi
-popd
