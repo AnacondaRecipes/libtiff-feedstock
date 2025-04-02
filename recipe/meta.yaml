@@ -12,9 +12,6 @@ source:
 
 build:
   number: 0
-  # TODO: remove s390x after March 31.
-  # FAIL: test_directory on s390x
-  skip: true  # [s390x]
   run_exports:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
