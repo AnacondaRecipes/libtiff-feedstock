@@ -1,4 +1,4 @@
-{% set version = "4.5.1" %}
+{% set version = "4.7.0" %}
 
 package:
   name: libtiff
@@ -6,21 +6,16 @@ package:
 
 source:
   - url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
-    sha256: d7f38b6788e4a8f5da7940c5ac9424f494d8a79eba53d555f4a507167dca5e2b
-    folder: .
-    patches:                                        # [osx]
-      - patches/set_configure_script_version.patch  # [osx]
+    sha256: 67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976
+    patches:
+      - patches/use_unix_io.patch  # [win]
 
 build:
-  number: 1
+  number: 0
   run_exports:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
     - {{ pin_subpackage('libtiff', max_pin='x') }}
-  missing_dso_whitelist:
-    # Only used by libtiff,bin/tiffgt (a viewer), which is ok.
-    - /opt/X11/lib/libGL.1.dylib
-    - /opt/X11/lib/libglut.3.dylib
 
 requirements:
   build:
@@ -29,43 +24,54 @@ requirements:
     - cmake         # [win]
     - libtool       # [unix]
     - make          # [not win]
-    - ninja         # [win]
-    - patch         # [osx]
+    - ninja-base    # [win]
+    - m2-patch      # [win]
   host:
-    - jpeg 9e
-    - libwebp-base 1.2.4 # [linux or osx]
-    - xz 5.2.*
-    - zlib 1.2.13  # should be actually 1.2.11, but pinning hell
+    - jpeg {{ jpeg }}
+    - libwebp-base {{ libwebp }}
+    - xz {{ xz }}
+    - zlib {{ zlib }}
     - zstd {{ zstd }}
+    # tiffgt.exe requires freeglut on Windows
+    - freeglut 3.4.0  # [win]
     - lerc 4
     - libdeflate 1.22
   run:
-    - jpeg >=9e,<10a
-    - libwebp-base >=1.2.4,<2.0a0 # [linux or osx]
+    - jpeg
+    - libwebp-base
     - xz
-    - zlib >=1.2.13,<1.3.0a0
-    - zstd >=1.5.2,<1.6.0a0
+    - zlib
+    - zstd
     - lerc
     - libdeflate
 
 test:
-  downstreams:
-    - pillow >=8
-    - py-opencv >=4
-  commands:
-    - test -f ${PREFIX}/lib/libtiff.a  # [not win]
-    - test -f ${PREFIX}/lib/libtiffxx.a  # [not win]
-    - test -f ${PREFIX}/lib/libtiff{{ SHLIB_EXT }}  # [not win]
-    - test -f ${PREFIX}/lib/libtiffxx{{ SHLIB_EXT }}  # [not win]
-    - if not exist %PREFIX%\\Library\\bin\\tiff.dll exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\lib\\tiffxx.lib exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\bin\\libtiff.dll exit 1  # [win]
-    # The C++ tiffxx.dll has been removed as of 4.5.0:
-    # https://gitlab.com/libtiff/libtiff/-/merge_requests/338
+  # test commands are moved to run_test.sh and run_test.bat
+  # downstreams:
+  #   - devil
+  #   - gdk-pixbuf
+  #   - geotiff
+  #   - imagecodecs
+  #   - lcms2
+  #   - leptonica
+  #   - libgd
+  #   - libgdal
+  #   - libwebp
+  #   - opencv >=4  # [not s390x]
+  #   - openjpeg
+  #   - pillow >=8
+  #   - poppler
+  #   - poppler-qt
+  #   - proj
+  #   - qtimageformats
+  #   - qtwebengine
+  #   - vtk-base
+  #   # - r-base
+  #   # - r-ijtiff
+  #   - opencv-python-headless  # channel sfe1ed40
 
 about:
-  # HTTPS does not work.
-  home: http://www.simplesystems.org/libtiff/
+  home: https://libtiff.gitlab.io/libtiff
   license: HPND
   license_file: LICENSE.md
   license_family: Other
@@ -73,8 +79,7 @@ about:
   description: |
     This software provides support for the Tag Image File Format (TIFF), a
     widely used format for storing image data.
-  # HTTPS does not work.
-  doc_url: http://www.simplesystems.org/libtiff/
+  doc_url: https://libtiff.gitlab.io/libtiff
   dev_url: https://gitlab.com/libtiff/libtiff
 
 extra:
