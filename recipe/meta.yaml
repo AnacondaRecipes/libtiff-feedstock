@@ -1,12 +1,13 @@
-{% set version = "4.7.0" %}
+{% set version = "4.7.1" %}
+{% set name = "libtiff" %}
 
 package:
-  name: libtiff
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  - url: https://download.osgeo.org/libtiff/tiff-{{ version }}.tar.gz
-    sha256: 67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976
+  - url: https://download.osgeo.org/{{ name }}/tiff-{{ version }}.tar.gz
+    sha256: f698d94f3103da8ca7438d84e0344e453fe0ba3b7486e04c5bf7a9a3fabe9b69
     patches:
       - patches/use_unix_io.patch  # [win]
 
@@ -21,13 +22,16 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}
     - cmake         # [win]
     - libtool       # [unix]
     - make          # [not win]
     - ninja-base    # [win]
     - m2-patch      # [win]
   host:
-    - jpeg {{ jpeg }}
+    # We need to have libtiff with libjpeg-turbo instead of jpeg to be able to build imagecodecs
+    # conda-forge already has all dependency of imagecodecs built with libjpeg-turbo
+    - libjpeg-turbo >=3.1.1
     - libwebp-base {{ libwebp }}
     - xz {{ xz }}
     - zlib {{ zlib }}
@@ -37,7 +41,7 @@ requirements:
     - lerc 4
     - libdeflate 1.22
   run:
-    - jpeg
+    - libjpeg-turbo
     - libwebp-base
     - xz
     - zlib
