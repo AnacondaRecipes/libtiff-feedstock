@@ -29,9 +29,7 @@ requirements:
     - ninja-base    # [win]
     - m2-patch      # [win]
   host:
-    # We need to have libtiff with libjpeg-turbo instead of jpeg to be able to build imagecodecs
-    # conda-forge already has all dependency of imagecodecs built with libjpeg-turbo
-    - libjpeg-turbo >=3.1.1
+    - jpeg
     - libwebp-base {{ libwebp }}
     - xz {{ xz }}
     - zlib {{ zlib }}
@@ -41,7 +39,7 @@ requirements:
     - lerc 4
     - libdeflate 1.22
   run:
-    - libjpeg-turbo
+    - jpeg
     - libwebp-base
     - xz
     - zlib
