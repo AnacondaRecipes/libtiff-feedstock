@@ -12,7 +12,7 @@ source:
       - patches/use_unix_io.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
@@ -27,9 +27,8 @@ requirements:
     - libtool       # [unix]
     - make          # [not win]
     - ninja-base    # [win]
-    - m2-patch      # [win]
   host:
-    - jpeg {{ jpeg }}
+    - libjpeg-turbo {{ libjpeg_turbo }}
     - libwebp-base {{ libwebp }}
     - xz {{ xz }}
     - zlib {{ zlib }}
@@ -39,7 +38,7 @@ requirements:
     - lerc 4
     - libdeflate 1.22
   run:
-    - jpeg
+    - libjpeg-turbo
     - libwebp-base
     - xz
     - zlib

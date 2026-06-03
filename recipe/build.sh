@@ -7,6 +7,7 @@ cp $BUILD_PREFIX/share/libtool/build-aux/config.* ./config
             --host=$HOST \
             --build=$BUILD \
             --disable-static \
+            --disable-docs \
             --with-zlib-include-dir="${PREFIX}/include" \
             --with-zlib-lib-dir="${PREFIX}/lib" \
             --with-jpeg-include-dir="${PREFIX}/include" \
