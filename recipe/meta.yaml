@@ -12,7 +12,7 @@ source:
       - patches/use_unix_io.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # Does a very good job of maintaining compatibility.
     #    https://abi-laboratory.pro/tracker/timeline/libtiff/
@@ -34,9 +34,9 @@ requirements:
     - zlib {{ zlib }}
     - zstd {{ zstd }}
     # tiffgt.exe requires freeglut on Windows
-    - freeglut 3.4.0  # [win]
-    - lerc 4
-    - libdeflate 1.22
+    - freeglut {{ freeglut }} # [win]
+    - lerc {{ lerc }}
+    - libdeflate {{ libdeflate }}
   run:
     - libjpeg-turbo
     - libwebp-base
